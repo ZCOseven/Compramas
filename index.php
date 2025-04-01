@@ -77,7 +77,7 @@
 						<h1>Estudio Moderno <span clsas="d-block">de diseño de interiores</span></h1>
 						<p class="mb-4">Encuentra los mejores muebles para decorar tu hogar.Tenemos una gran variedad de
 							diseños para todos los gustos.</p>
-						<p><a href="shop.html" class="btn btn-secondary me-2">Nuestros productos</a><a href="shop.html"
+						<p><a href="shop.php" class="btn btn-secondary me-2">Nuestros productos</a><a href="shop.html"
 								class="btn btn-white-outline">Explora</a></p>
 					</div>
 				</div>
