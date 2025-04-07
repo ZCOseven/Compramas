@@ -1,0 +1,313 @@
+/* =============================================
+   CONTENEDOR BANNER
+   ============================================= */
+.c-banner {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+
+  max-width: 1400px;
+  padding-inline: 3rem;
+  margin: 0 auto;
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  flex: 2;
+}
+
+.hero__title {
+  font-size: var(--texto-xl);
+  color: var(--color-texto);
+  font-weight: var(--peso-bold);
+}
+
+.hero__subtitle {
+  font-size: var(--texto-lg);
+  color: var(--color-texto);
+  font-weight: var(--peso-regular);
+}
+
+.btn-hero {
+  border-radius: 5px;
+  background-color: var(--color-secundario);
+  color: var(--color-texto-alterno);
+  text-decoration: none;
+  font-weight: var(--peso-medio);
+
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.7rem 1.5rem;
+  width: fit-content;
+  min-width: min-content;
+  white-space: nowrap;
+
+  transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+.btn-hero:hover {
+  background-color: var(--color-primario);
+  transform: translateY(-2px);
+}
+
+.hero__img-container {
+  flex: 3;
+}
+
+.hero__img {
+  filter: drop-shadow(0 12px 4px rgba(0, 0, 0, 0.3));
+}
+
+/* =============================================
+   CONTENEDOR PRINCIPAL Y ESTRUCTURAS GLOBALES
+   ============================================= */
+
+.c-principal {
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+  width: 100%;
+  max-width: 1400px;
+  padding: 3rem;
+  margin: 0 auto;
+}
+
+/* Estilos compartidos para secciones */
+.categorias,
+.destacados,
+.ofrecemos {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+/* Estilos compartidos para títulos */
+.categorias__titulo,
+.destacados__titulo,
+.ofrecemos__titulo {
+  font-size: var(--texto-lg);
+  text-align: center;
+  display: inline-block;
+  position: relative;
+  margin: 0 auto;
+  font-weight: var(--peso-regular);
+}
+
+/* Subrayado decorativo para títulos */
+.categorias__titulo::after,
+.destacados__titulo::after,
+.ofrecemos__titulo::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: -10%;
+  right: 0;
+  height: 2px;
+  background: var(--color-terciario);
+  width: 120%;
+}
+
+/* =============================================
+   SECCIÓN CATEGORÍAS
+   ============================================= */
+
+.categorias__grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1rem;
+}
+
+.categorias__item {
+  aspect-ratio: 1/1;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.categorias__texto {
+  position: relative;
+  z-index: 2;
+  color: white;
+  font-size: 1.2rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  text-align: center;
+  width: 100%;
+  padding: 1rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Overlay oscuro */
+.categorias__item::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1;
+  transition: opacity 0.3s ease;
+}
+
+/* Efectos hover */
+.categorias__item:hover {
+  transform: scale(1.03);
+}
+
+.categorias__item:hover::before {
+  opacity: 0.8;
+}
+
+/* =============================================
+   SECCIÓN DESTACADOS
+   ============================================= */
+
+.destacados__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+.producto-card {
+  display: flex;
+  flex-direction: column;
+  height: 450px;
+  border: 1px solid #e0e0e0;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+/* Contenedor de imagen */
+.producto-card__imagen-container {
+  position: relative;
+  height: 70%;
+  overflow: hidden;
+}
+
+.producto-card__imagen {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.5s ease;
+  cursor: pointer;
+}
+
+/* Imagen secundaria (hover) */
+.producto-card__imagen--back {
+  opacity: 0;
+}
+
+/* Contenedor de información */
+.producto-card__info {
+  padding: 1rem;
+  height: 30%;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+/* Estilos de texto */
+.producto-card__categoria {
+  font-style: italic;
+  font-weight: 300;
+  color: #666;
+  margin-bottom: 0.5rem;
+}
+
+.producto-card__nombre {
+  margin: 0 0 0.5rem;
+  font-size: 1.1rem;
+}
+
+.producto-card__precio {
+  font-weight: bold;
+  color: var(--color-primario);
+  margin-top: auto;
+}
+
+/* Efectos hover */
+.producto-card:hover {
+  transform: translateY(-5px);
+}
+
+.producto-card:hover .producto-card__imagen--front {
+  opacity: 0;
+}
+
+.producto-card:hover .producto-card__imagen--back {
+  opacity: 1;
+}
+
+.producto-card__categoria:hover {
+  text-decoration: underline;
+  color: var(--color-primario);
+}
+
+/* =============================================
+   SECCIÓN OFRECEMOS
+   ============================================= */
+
+.ofrecemos__grid {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 100%;
+}
+
+.ofrecemos__item {
+  position: relative;
+  width: 100%;
+  padding-block: 1.5rem;
+  text-align: center;
+  color: white;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+}
+
+/* Overlay oscuro */
+.ofrecemos__item::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1;
+}
+
+/* Contenido de ítem */
+.ofrecemos__icono,
+.ofrecemos__texto {
+  position: relative;
+  z-index: 2;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.ofrecemos__icono {
+  margin-right: 0.8rem;
+  font-size: 1.5rem;
+}
+
+/* =============================================
+   MEDIA QUERIES (RESPONSIVE)
+   ============================================= */
+
+@media (max-width: 768px) {
+  .categorias__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .destacados__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
