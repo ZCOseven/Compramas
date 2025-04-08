@@ -39,38 +39,58 @@ if (isset($_SESSION['user'])) {
 
 <body>
     <header class="header">
+        <!-- Contenedor principal del header -->
         <div class="header__container">
+
+            <!-- Logo que enlaza a la página de inicio -->
             <a href="../public/index.php">
                 <img src="../assets/img/general/logo-compramas.png" alt="Logo" class="header__logo">
             </a>
 
-            <!-- Menú desktop (visible en pantallas grandes) -->
+            <!-- Menú de navegación para pantallas grandes (versión de escritorio) -->
             <nav class="header__nav" aria-label="Menú header">
+
+                <!-- Enlace a "Inicio" con clase activa si $activePage es 'inicio' -->
                 <a href="../public/index.php" class="header__nav-link <?= $activePage === 'inicio' ? 'header__nav-link--active' : '' ?>">Inicio</a>
+
+                <!-- Enlace a "Productos", activa si $activePage es 'productos' -->
                 <a href="../public/productos.php" class="header__nav-link <?= $activePage === 'productos' ? 'header__nav-link--active' : '' ?>">Productos</a>
+
+                <!-- Enlace a "Servicios", activa si $activePage es 'servicios' -->
                 <a href="../public/servicios.php" class="header__nav-link <?= $activePage === 'servicios' ? 'header__nav-link--active' : '' ?>">Servicios</a>
 
-              <!--   <a href="../public/soporte.php" class="header__nav-link <?= $activePage === 'soporte' ? 'header__nav-link--active' : '' ?>">Soporte</a>
-                <a href="../public/encuentranos.php" class="header__nav-link <?= $activePage === 'encuentranos' ? 'header__nav-link--active' : '' ?>">Encuéntranos</a> -->
+                <!-- Enlaces comentados que podrían usarse en el futuro -->
+                <!--
+    <a href="../public/soporte.php" class="header__nav-link <?= $activePage === 'soporte' ? 'header__nav-link--active' : '' ?>">Soporte</a>
+    <a href="../public/encuentranos.php" class="header__nav-link <?= $activePage === 'encuentranos' ? 'header__nav-link--active' : '' ?>">Encuéntranos</a>
+    -->
 
+                <!-- Enlace a "Contactos", activa si $activePage es 'contactos' -->
                 <a href="../public/contactos.php" class="header__nav-link <?= $activePage === 'contactos' ? 'header__nav-link--active' : '' ?>">Contactos</a>
+
+                <!-- Enlace de login o perfil del usuario, dependiendo de si está logueado -->
                 <a href="../public/login.php" class="header__nav-link <?= $activePage === 'login' ? 'header__nav-link--active' : '' ?>">
+
+                    <!-- Si el usuario ha iniciado sesión, se muestra su nombre con ícono -->
                     <?php if (isset($_SESSION['user'])): ?>
                         <i class="fas fa-user"></i> <?= $_SESSION['user']['nombre']; ?>
+
+                        <!-- Si no ha iniciado sesión, se muestra "Iniciar sesión" -->
                     <?php else: ?>
                         Iniciar sesión
                     <?php endif; ?>
-
 
                 </a>
 
             </nav>
 
-            <!-- Botón hamburguesa (solo visible en móviles) -->
+            <!-- Botón hamburguesa (menú desplegable en versión móvil) -->
             <button class="header__hamburger" onclick="toggleMenu()">
-                <i class="fas fa-bars"></i>
+                <i class="fas fa-bars"></i> <!-- Ícono de barras (hamburguesa) -->
             </button>
+
         </div>
+
 
         <!-- Menú móvil (fuera del container, oculto por defecto) -->
         <div class="mobile-menu" id="mobileMenu">
@@ -82,7 +102,7 @@ if (isset($_SESSION['user'])) {
                 <a href="../public/index.php" class="mobile-menu__link <?= $activePage === 'inicio' ? 'header__nav-link--active' : '' ?>" onclick="toggleMenu()">Inicio</a>
                 <a href="../public/productos.php" class="mobile-menu__link <?= $activePage === 'productos' ? 'header__nav-link--active' : '' ?>" onclick="toggleMenu()">Productos</a>
 
-            <!--     <a href="../public/servicios.php" class="mobile-menu__link <?= $activePage === 'servicios' ? 'header__nav-link--active' : '' ?>" onclick="toggleMenu()">Servicios</a>
+                <!--     <a href="../public/servicios.php" class="mobile-menu__link <?= $activePage === 'servicios' ? 'header__nav-link--active' : '' ?>" onclick="toggleMenu()">Servicios</a>
                 <a href="../public/soporte.php" class="mobile-menu__link <?= $activePage === 'soporte' ? 'header__nav-link--active' : '' ?>" onclick="toggleMenu()">Soporte</a> -->
 
                 <a href="../public/encuentranos.php" class="mobile-menu__link <?= $activePage === 'encuentranos' ? 'header__nav-link--active' : '' ?>" onclick="toggleMenu()">Encuéntranos</a>

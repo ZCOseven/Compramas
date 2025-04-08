@@ -1,13 +1,22 @@
 <?php
+// Define el título de la página que se usará en el <title> del HTML
 $title = "Compramas - Shop Page";
+
+// Variable que indica qué sección del menú está activa (para resaltar visualmente)
 $activePage = 'productos';
+
+// Inicia la captura de salida (todo lo que se imprima después se puede guardar en una variable con ob_get_clean())
 ob_start();
 
+// Revisa si se recibió un parámetro "cat" por la URL (GET). Si existe, lo sanitiza con htmlspecialchars.
 $categoria = isset($_GET['cat']) ? htmlspecialchars($_GET['cat']) : null;
+
+// Si se encontró una categoría válida en la URL, se muestra un mensaje con el nombre capitalizado
 if ($categoria) {
     $mensajeCategoria = "Mostrando productos de la categoría: <strong>" . ucfirst($categoria) . "</strong>";
 } else {
-    $mensajeCategoria =  "Todos nuestros productos | sin una categoria en especifico";
+    // Si no se especifica categoría, se muestra un mensaje genérico
+    $mensajeCategoria =  "Todos nuestros productos | sin una categoría en específico";
 }
 ?>
 

@@ -5,7 +5,7 @@ ob_start();
 ?>
 
 <!-- Estilos CSS personalizados -->
- <link rel="stylesheet" href="../assets/css/inicio.css">
+<link rel="stylesheet" href="../assets/css/inicio.css">
 
 <!-- Contenido de la pagina -->
 <section class="c-banner" aria-label="Banner principal">
@@ -24,26 +24,55 @@ ob_start();
 
 <section class="c-principal">
 
+    <!-- Sección que contiene las categorías de productos -->
     <section class="categorias">
+
+        <!-- Título principal de esta sección -->
         <h2 class="categorias__titulo">Categoría De Productos</h2>
+
+        <!-- Navegación que agrupa las diferentes categorías de productos -->
+        <!-- Se usa 'aria-label' para mejorar la accesibilidad -->
         <nav class="categorias__grid" aria-label="Categorías de productos">
-            <a href="productos.php?cat=macetas" class="categorias__item" style="background-image: url('../assets/img/inicio/bg-maceta.jpg')">
+
+            <!-- Enlace a la categoría "Macetas" -->
+            <!-- El fondo es una imagen representativa de macetas -->
+            <a href="productos.php?cat=macetas" class="categorias__item"
+                style="background-image: url('../assets/img/inicio/bg-maceta.jpg')">
+                <!-- Texto visible sobre la imagen -->
                 <span class="categorias__texto">Macetas</span>
             </a>
-            <a href="productos.php?cat=fertilizantes" class="categorias__item" style="background-image: url('../assets/img/inicio/bg-fertilizante.jpg')">
+
+            <!-- Enlace a la categoría "Fertilizantes" -->
+            <!-- Imagen de fondo específica para fertilizantes -->
+            <a href="productos.php?cat=fertilizantes" class="categorias__item"
+                style="background-image: url('../assets/img/inicio/bg-fertilizante.jpg')">
                 <span class="categorias__texto">Fertilizantes</span>
             </a>
-            <a href="productos.php?cat=herramientas" class="categorias__item" style="background-image: url('../assets/img/inicio/bg-herramienta.jpg')">
+
+            <!-- Enlace a la categoría "Herramientas" -->
+            <!-- Imagen de fondo relacionada con herramientas -->
+            <a href="productos.php?cat=herramientas" class="categorias__item"
+                style="background-image: url('../assets/img/inicio/bg-herramienta.jpg')">
                 <span class="categorias__texto">Herramientas</span>
             </a>
-            <a href="productos.php?cat=plantas" class="categorias__item" style="background-image: url('../assets/img/inicio/bg-planta.jpg')">
+
+            <!-- Enlace a la categoría "Plantas" -->
+            <!-- Imagen de fondo con temática de plantas -->
+            <a href="productos.php?cat=plantas" class="categorias__item"
+                style="background-image: url('../assets/img/inicio/bg-planta.jpg')">
                 <span class="categorias__texto">Plantas</span>
             </a>
-            <a href="productos.php?cat=accesorios" class="categorias__item" style="background-image: url('../assets/img/inicio/bg-accesorio.jpg')">
+
+            <!-- Enlace a la categoría "Accesorios" -->
+            <!-- Imagen representativa de accesorios -->
+            <a href="productos.php?cat=accesorios" class="categorias__item"
+                style="background-image: url('../assets/img/inicio/bg-accesorio.jpg')">
                 <span class="categorias__texto">Accesorios</span>
             </a>
+
         </nav>
     </section>
+
 
     <article class="destacados">
         <h2 class="destacados__titulo">Productos Más Vendidos</h2>
@@ -106,27 +135,45 @@ ob_start();
         </div>
     </article>
 
+    <!-- Sección que muestra lo que ofrece la tienda o empresa -->
     <section class="ofrecemos">
+
+        <!-- Título principal de esta sección -->
         <h2 class="ofrecemos__titulo">Ofrecemos</h2>
+
+        <!-- Contenedor en forma de grid para organizar visualmente los ítems -->
         <div class="ofrecemos__grid">
+
+            <!-- Primer ítem de lo que se ofrece -->
+            <!-- Tiene un fondo con imagen relacionada al servicio -->
             <div class="ofrecemos__item" style="background-image: url('../assets/img/inicio/ofrecemos1.jpg')">
+                <!-- Icono representativo del servicio (emoji de caja) -->
                 <span class="ofrecemos__icono">📦</span>
+                <!-- Descripción del servicio -->
                 <span class="ofrecemos__texto">Envío rápido y seguro</span>
             </div>
+
+            <!-- Segundo ítem: Calidad garantizada -->
             <div class="ofrecemos__item" style="background-image: url('../assets/img/inicio/ofrecemos2.jpg')">
                 <span class="ofrecemos__icono">⭐</span>
                 <span class="ofrecemos__texto">Productos de calidad garantizada</span>
             </div>
+
+            <!-- Tercer ítem: Atención personalizada -->
             <div class="ofrecemos__item" style="background-image: url('../assets/img/inicio/ofrecemos3.jpg')">
                 <span class="ofrecemos__icono">👩‍💼</span>
                 <span class="ofrecemos__texto">Atención personalizada</span>
             </div>
+
+            <!-- Cuarto ítem: Pagos seguros -->
             <div class="ofrecemos__item" style="background-image: url('../assets/img/inicio/ofrecemos4.jpg')">
                 <span class="ofrecemos__icono">🔒</span>
                 <span class="ofrecemos__texto">Pagos seguros y confiables</span>
             </div>
-        </div>
+
+        </div> <!-- Fin del grid -->
     </section>
+
 
 </section>
 
