@@ -172,7 +172,7 @@
 .c-productos {
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(3,1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
 }
 
@@ -183,10 +183,16 @@
   overflow: hidden;
   transition: transform 0.3s ease;
   text-align: center;
+  padding: 1.5rem;
 }
 
-.producto-card img{
+.producto-card img {
   position: relative;
   height: 70%;
   overflow: hidden;
+}
+
+.resaltado {
+  background-color: #F90B2C; /* Cambia el color de fondo o el estilo que prefieras */
+  color: white; /* Opcional, para cambiar el color del texto */
 }
