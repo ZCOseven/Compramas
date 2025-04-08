@@ -23,6 +23,7 @@ if ($categoria) {
 
 <section class="c-principal" aria-label="Seccion Principal de Productos">
     <aside class="c-filtros">
+        <div class="filtros">
             <h2 class="c-filtros__titulo">Filtrar Productos</h2>
 
             <!-- Filtro de búsqueda por texto -->
@@ -75,6 +76,7 @@ if ($categoria) {
 
             <button class="c-filtros__boton c-filtros__boton--aplicar">Aplicar Filtros</button>
             <button class="c-filtros__boton c-filtros__boton--limpiar">Limpiar Filtros</button>
+        </div>
     </aside>
 
     <article class="c-productos">
