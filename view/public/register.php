@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 require '../../model/database.php'; // Incluye el archivo de conexión a la base de datos
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {

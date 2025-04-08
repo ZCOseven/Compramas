@@ -1,3 +1,22 @@
+<?php
+session_start();
+require '../../model/database.php';
+
+// Definir la variable $resultadoDeConsulta
+$resultadoDeConsulta = null;
+
+// Comprobar si el usuario está logueado
+if (isset($_SESSION['user'])) {
+    // Obtener el ID del usuario de la sesión
+    $userId = $_SESSION['user']['id'];
+
+    // Realizar la consulta
+    $stmt = $conn->prepare("SELECT * FROM users WHERE id = :id");
+    $stmt->execute(['id' => $userId]);
+    $resultadoDeConsulta = $stmt->fetch();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="es-pe">
 
@@ -9,6 +28,7 @@
     <meta name="author" content="Daniel Calderón - Frontend Developer">
 
     <link rel="shortcut icon" href="../assets/img/general/logo-compramas.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <!-- Links Css Generales -->
     <link rel="stylesheet" href="../assets/css/globales.css">
@@ -34,7 +54,16 @@
                 <a href="../public/servicios.php" class="header__nav-link <?= $activePage === 'servicios' ? 'header__nav-link--active' : '' ?>">Servicios</a>
                 <a href="../public/soporte.php" class="header__nav-link <?= $activePage === 'soporte' ? 'header__nav-link--active' : '' ?>">Soporte</a>
                 <a href="../public/encuentranos.php" class="header__nav-link <?= $activePage === 'encuentranos' ? 'header__nav-link--active' : '' ?>">Encuéntranos</a>
-                <a href="../public/login.php" class="header__nav-link <?= $activePage === 'login' ? 'header__nav-link--active' : '' ?>">iniciar Sesion</a>
+                <a href="../public/login.php" class="header__nav-link <?= $activePage === 'login' ? 'header__nav-link--active' : '' ?>">
+                    <?php if (isset($_SESSION['user'])): ?>
+                        <i class="fas fa-user"></i> <?= $_SESSION['user']['nombre']; ?>
+                    <?php else: ?>
+                        Iniciar sesión
+                    <?php endif; ?>
+
+
+                </a>
+
             </nav>
 
             <!-- Botón hamburguesa (solo visible en móviles) -->
