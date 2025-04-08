@@ -147,29 +147,29 @@
 							</div>
 						</div>
 
-						<form>
+						<form action="dashboard/comentar.php" method="POST">
 							<div class="row">
 								<div class="col-6">
 									<div class="form-group">
 										<label class="text-black" for="fname">Nombre completo</label>
-										<input type="text" class="form-control" id="fname">
+										<input type="text" class="form-control" id="fname" name="fname">
 									</div>
 								</div>
 								<div class="col-6">
 									<div class="form-group">
 										<label class="text-black" for="lname">Apellidos</label>
-										<input type="text" class="form-control" id="lname">
+										<input type="text" class="form-control" id="lname" name="lname">
 									</div>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="text-black" for="email">Correo electronico</label>
-								<input type="email" class="form-control" id="email">
+								<input type="email" class="form-control" id="email" name="email">
 							</div>
 
 							<div class="form-group mb-5">
 								<label class="text-black" for="message">Mensaje</label>
-								<textarea name="" class="form-control" id="message" cols="30" rows="5"></textarea>
+								<textarea name="message" class="form-control" id="message" cols="30" rows="5"></textarea>
 							</div>
 
 							<button type="submit" class="btn btn-primary-hover-outline">Enviar Mensaje</button>
