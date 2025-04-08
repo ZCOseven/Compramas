@@ -7,7 +7,7 @@ $categoria = isset($_GET['cat']) ? htmlspecialchars($_GET['cat']) : null;
 if ($categoria) {
     $mensajeCategoria = "Mostrando productos de la categoría: <strong>" . ucfirst($categoria) . "</strong>";
 } else {
-    $mensajeCategoria =  "Todos nuestros productos | sin una categoria en especifico";
+    $mensajeCategoria = "Todos nuestros productos | sin una categoria en especifico";
 }
 ?>
 
@@ -28,9 +28,7 @@ if ($categoria) {
         <!-- Filtro de búsqueda por texto -->
         <div class="c-filtros__grupo">
             <label for="busqueda-texto" class="c-filtros__label">Buscar</label>
-            <input type="text"
-                id="busqueda-texto"
-                class="c-filtros__input c-filtros__input--texto"
+            <input type="text" id="busqueda-texto" class="c-filtros__input c-filtros__input--texto"
                 placeholder="Nombre del producto...">
         </div>
 
@@ -39,11 +37,7 @@ if ($categoria) {
             <h3 class="c-filtros__subtitulo">Rango de Precios</h3>
             <div class="c-filtros__rango">
                 <span class="c-filtros__precio" id="precio-min">S/0</span>
-                <input type="range"
-                    min="0"
-                    max="1000"
-                    value="500"
-                    class="c-filtros__input c-filtros__input--rango"
+                <input type="range" min="0" max="1000" value="500" class="c-filtros__input c-filtros__input--rango"
                     id="rango-precios">
                 <span class="c-filtros__precio" id="precio-max">S/1000</span>
             </div>
@@ -53,24 +47,10 @@ if ($categoria) {
         <div class="c-filtros__grupo">
             <h3 class="c-filtros__subtitulo">Categorías</h3>
             <ul class="c-filtros__lista">
-                <li class="c-filtros__item">
-                    <input type="checkbox"
-                        id="cat-macetas"
-                        class="c-filtros__checkbox"
-                        name="categoria"
-                        value="macetas">
-                    <label for="cat-macetas" class="c-filtros__label">Macetas</label>
-                </li>
-                <li class="c-filtros__item">
-                    <input type="checkbox"
-                        id="cat-herramientas"
-                        class="c-filtros__checkbox"
-                        name="categoria"
-                        value="herramientas">
-                    <label for="cat-herramientas" class="c-filtros__label">Herramientas</label>
-                </li>
+                <?php include '../../dashboard/lis-categorias.php'; ?>
             </ul>
         </div>
+
 
         <!-- Filtro por stock (radio buttons) -->
         <div class="c-filtros__grupo">
@@ -96,7 +76,7 @@ if ($categoria) {
     </aside>
 
     <article class="c-productos">
-        Iteracion de productos desde la BD
+        <?php include '../../dashboard/productos-list.php'; ?>
     </article>
 </section>
 
