@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         echo "<script>
                 alert('¡Inicio de sesión exitoso!');
-                window.location.href = 'index.php'; // Redirigir a la página principal
+                window.location.href = '../../panel.php'; // Redirigir a la página principal
               </script>";
     } else {
         echo "<script>alert('¡Credenciales Incorrectos!');</script>";
