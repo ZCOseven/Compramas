@@ -34,6 +34,7 @@
                 <a href="../public/servicios.php" class="header__nav-link <?= $activePage === 'servicios' ? 'header__nav-link--active' : '' ?>">Servicios</a>
                 <a href="../public/soporte.php" class="header__nav-link <?= $activePage === 'soporte' ? 'header__nav-link--active' : '' ?>">Soporte</a>
                 <a href="../public/encuentranos.php" class="header__nav-link <?= $activePage === 'encuentranos' ? 'header__nav-link--active' : '' ?>">Encuéntranos</a>
+                <a href="../public/login.php" class="header__nav-link <?= $activePage === 'login' ? 'header__nav-link--active' : '' ?>">iniciar Sesion</a>
             </nav>
 
             <!-- Botón hamburguesa (solo visible en móviles) -->
