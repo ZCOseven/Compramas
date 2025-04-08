@@ -26,6 +26,7 @@ if (isset($_SESSION['user'])) {
     <link rel="shortcut icon" href="../assets/img/general/logo-compramas.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <!-- Links Css Generales -->
     <link rel="stylesheet" href="../assets/css/globales.css">
     <link rel="stylesheet" href="../assets/css/variables.css">
@@ -48,8 +49,11 @@ if (isset($_SESSION['user'])) {
                 <a href="../public/index.php" class="header__nav-link <?= $activePage === 'inicio' ? 'header__nav-link--active' : '' ?>">Inicio</a>
                 <a href="../public/productos.php" class="header__nav-link <?= $activePage === 'productos' ? 'header__nav-link--active' : '' ?>">Productos</a>
                 <a href="../public/servicios.php" class="header__nav-link <?= $activePage === 'servicios' ? 'header__nav-link--active' : '' ?>">Servicios</a>
-                <a href="../public/soporte.php" class="header__nav-link <?= $activePage === 'soporte' ? 'header__nav-link--active' : '' ?>">Soporte</a>
-                <a href="../public/encuentranos.php" class="header__nav-link <?= $activePage === 'encuentranos' ? 'header__nav-link--active' : '' ?>">Encuéntranos</a>
+
+              <!--   <a href="../public/soporte.php" class="header__nav-link <?= $activePage === 'soporte' ? 'header__nav-link--active' : '' ?>">Soporte</a>
+                <a href="../public/encuentranos.php" class="header__nav-link <?= $activePage === 'encuentranos' ? 'header__nav-link--active' : '' ?>">Encuéntranos</a> -->
+
+                <a href="../public/contactos.php" class="header__nav-link <?= $activePage === 'contactos' ? 'header__nav-link--active' : '' ?>">Contactos</a>
                 <a href="../public/login.php" class="header__nav-link <?= $activePage === 'login' ? 'header__nav-link--active' : '' ?>">
                     <?php if (isset($_SESSION['user'])): ?>
                         <i class="fas fa-user"></i> <?= $_SESSION['user']['nombre']; ?>
@@ -77,9 +81,20 @@ if (isset($_SESSION['user'])) {
             <nav class="mobile-menu__nav">
                 <a href="../public/index.php" class="mobile-menu__link <?= $activePage === 'inicio' ? 'header__nav-link--active' : '' ?>" onclick="toggleMenu()">Inicio</a>
                 <a href="../public/productos.php" class="mobile-menu__link <?= $activePage === 'productos' ? 'header__nav-link--active' : '' ?>" onclick="toggleMenu()">Productos</a>
-                <a href="../public/servicios.php" class="mobile-menu__link <?= $activePage === 'servicios' ? 'header__nav-link--active' : '' ?>" onclick="toggleMenu()">Servicios</a>
-                <a href="../public/soporte.php" class="mobile-menu__link <?= $activePage === 'soporte' ? 'header__nav-link--active' : '' ?>" onclick="toggleMenu()">Soporte</a>
+
+            <!--     <a href="../public/servicios.php" class="mobile-menu__link <?= $activePage === 'servicios' ? 'header__nav-link--active' : '' ?>" onclick="toggleMenu()">Servicios</a>
+                <a href="../public/soporte.php" class="mobile-menu__link <?= $activePage === 'soporte' ? 'header__nav-link--active' : '' ?>" onclick="toggleMenu()">Soporte</a> -->
+
                 <a href="../public/encuentranos.php" class="mobile-menu__link <?= $activePage === 'encuentranos' ? 'header__nav-link--active' : '' ?>" onclick="toggleMenu()">Encuéntranos</a>
+                <a href="../public/login.php" class="header__nav-link <?= $activePage === 'login' ? 'header__nav-link--active' : '' ?>">
+                    <?php if (isset($_SESSION['user'])): ?>
+                        <i class="fas fa-user"></i> <?= $_SESSION['user']['nombre']; ?>
+                    <?php else: ?>
+                        Iniciar sesión
+                    <?php endif; ?>
+
+
+                </a>
             </nav>
         </div>
     </header>
