@@ -1,0 +1,170 @@
+/* ======================
+   BASE & LAYOUT PRINCIPAL
+   ====================== */
+.c-principal {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto 2.5rem;
+  padding-inline: 3rem;
+}
+
+.c-productos {
+  padding: 2rem;
+  flex: 5;
+}
+
+/* ======================
+   FILTROS
+   ====================== */
+.c-filtros {
+  flex: 3;
+  color: var(--color-texto-alterno);
+  background-color: #000000d6;
+  padding: 2rem;
+  min-height: 30rem;
+  position: sticky;
+}
+
+.c-filtros__grupo {
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--color-borde);
+}
+
+.c-filtros__subtitulo {
+  font-size: 1rem;
+  margin-bottom: 0.75rem;
+  color: var(--color-texto-medio);
+}
+
+.c-filtros__lista {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.c-filtros__item {
+  margin-bottom: 0.5rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.c-filtros__input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid var(--color-borde);
+  border-radius: 4px;
+}
+
+/* Variantes de inputs */
+.c-filtros__input--texto {
+  margin-block: 0.5rem;
+  padding: 0.75rem 0.5rem;
+  font-size: var(--texto-sm);
+  border: 1px solid #e0e0e0;
+}
+
+.c-filtros__input--rango {
+  flex-grow: 1;
+}
+
+/* Componente rango de precios */
+.c-filtros__rango {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+/* Elementos de formulario */
+.c-filtros__checkbox,
+.c-filtros__radio {
+  accent-color: var(--color-primario);
+}
+
+/* ======================
+   BOTONES
+   ====================== */
+.c-filtros__boton {
+  width: 100%;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 4px;
+  margin-top: 0.5rem;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.c-filtros__boton--aplicar {
+  background-color: var(--color-primario);
+  color: white;
+}
+
+.c-filtros__boton--limpiar {
+  background-color: transparent;
+  border: 1px solid #ffffff;
+}
+
+/* Efecto hover botón aplicar */
+.c-filtros__boton--aplicar::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 1s ease;
+  pointer-events: none;
+}
+
+.c-filtros__boton--aplicar:hover::before {
+  width: 20px;
+  height: 20px;
+  transform: translate(-50%, -50%) scale(25);
+}
+
+/* Efecto hover botón limpiar */
+.c-filtros__boton--limpiar:hover {
+  border-color: var(--filtros-color-primario-danger);
+  color: var(--filtros-color-primario-danger);
+}
+
+/* ======================
+   HEADER DE BÚSQUEDA
+   ====================== */
+.c-barra-de-texto {
+  width: 100%;
+  background-color: #000000d6;
+}
+
+.c-mostrar-busqueda {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2.5rem 3rem;
+  color: var(--color-texto-alterno);
+}
+
+/* ======================
+   RESPONSIVE
+   ====================== */
+@media (max-width: 768px) {
+  .c-principal {
+    flex-direction: column;
+    padding-inline: 1rem;
+  }
+
+  .c-filtros {
+    position: static;
+    margin-bottom: 2rem;
+    min-height: auto;
+  }
+}

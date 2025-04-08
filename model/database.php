@@ -1,6 +1,6 @@
 <?php
 
-$server = 'localhost:3306';
+$server = 'localhost';
 $username = 'root';
 $password = '';
 $database = 'pagina';
@@ -11,3 +11,4 @@ try {
   die('Connection Failed: ' . $e->getMessage());
 }
 ?>
+

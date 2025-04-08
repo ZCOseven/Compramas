@@ -2,41 +2,41 @@
 require 'model/database.php';
 require 'model/config.php';
 
-$id = isset($_GET['id_producto'])? $_GET['id_producto'] : '';
+$id = isset($_GET['id_producto']) ? $_GET['id_producto'] : '';
 $token = isset($_GET['token']) ? $_GET['token'] : '';
 
-if($id == '' || $token == ''){
+if ($id == '' || $token == '') {
     echo 'error al mostrar datos';
     exit;
 
-}else{
+} else {
 
     $token_tmp = hash_hmac('sha1', $id, KEY_TOKEN);
 
 
-if ($token == $token_tmp) {
-    
-    $sql = $conn->prepare("SELECT count(id_producto)  from producto where id_producto=?");
-    $sql->execute([$id]);
-    if($sql->fetchColumn() > 0){
+    if ($token == $token_tmp) {
 
-        $sql = $conn->prepare("SELECT  nom_pro, costo, stock, categoria, descripcion, imagen from producto where id_producto=? ");
+        $sql = $conn->prepare("SELECT count(id_producto)  from producto where id_producto=?");
         $sql->execute([$id]);
-        $row = $sql->fetch(PDO::FETCH_ASSOC);
-        $nombre = $row['nom_pro'];
-        $costo = $row['costo'];
-        $stock = $row['stock'];
-        $categoria = $row['categoria'];
-        $descripcion = $row['descripcion'];
-        $imagen = $row['imagen'];
-        
+        if ($sql->fetchColumn() > 0) {
 
+            $sql = $conn->prepare("SELECT  nom_pro, costo, stock, categoria, descripcion, imagen from producto where id_producto=? ");
+            $sql->execute([$id]);
+            $row = $sql->fetch(PDO::FETCH_ASSOC);
+            $nombre = $row['nom_pro'];
+            $costo = $row['costo'];
+            $stock = $row['stock'];
+            $categoria = $row['categoria'];
+            $descripcion = $row['descripcion'];
+            $imagen = $row['imagen'];
+
+
+        }
+
+    } else {
+        echo 'error al mostrar datos';
+        exit;
     }
-
-} else {
-    echo'error al mostrar datos';
-    exit;
-}
 }
 
 
@@ -46,10 +46,10 @@ $consulta_categoria->execute([$categoria]); // Suponiendo que $categoria es el I
 $resultado_categoria = $consulta_categoria->fetch(PDO::FETCH_ASSOC);
 
 if ($resultado_categoria) {
-   
+
     $nombre_categoria = $resultado_categoria['cat_nom'];
 } else {
-   
+
     $nombre_categoria = "Sin categoría";
 }
 
@@ -69,7 +69,7 @@ if ($resultado_categoria) {
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link href="css/tiny-slider.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
+    <link href="css/style.cssF" rel="stylesheet">
     <title>Forniture</title>
 
     <style>
@@ -81,6 +81,23 @@ if ($resultado_categoria) {
         .li {
             list-style-type: none;
             margin-left: 30px;
+        }
+
+        .c-principal-detalles{
+            width: 100%;
+            padding: 10%;
+        }
+
+        .principal-detalles{
+            display: grid;
+            grid-template-columns: 40% 58%;
+            align-items: center;
+            gap: 2%;
+        }
+
+        .principal-detalles>h3{
+            text-align: justify;
+            justify-content: space-between;
         }
     </style>
 </head>
@@ -119,21 +136,23 @@ if ($resultado_categoria) {
 
     </nav>
 
-    <div class="">
-       
-            <div class="">
+    <div class="c-principal-detalles">
 
-              
+        <div class="principal-detalles">
+
+
+            <div class="detalles">
                 <h3 class=""><?php echo $nombre; ?></h3>
                 <img src="<?php echo str_replace('../', '', $imagen); ?>" class="">
                 <h2 class="">$<?php echo number_format($costo, 2); ?></h2>
                 <h3 class="">Stock:<?php echo $stock; ?></h3>
                 <h3 class="">categoria:<?php echo $nombre_categoria; ?></h3>
-                <h3 class=""><?php echo $descripcion; ?></h3>
-                
-
             </div>
-        
+            <h3 class=""><?php echo $descripcion; ?></h3>
+
+
+        </div>
+
     </div>
 
 </body>

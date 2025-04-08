@@ -2,6 +2,8 @@
 
 session_start();
 
+/* Hola mundo prueba de pedro */
+
 if (isset ($_SESSION['user_id'])) {
     header('Location:panel.php');
 }
