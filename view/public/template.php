@@ -2,15 +2,11 @@
 session_start();
 require '../../model/database.php';
 
-// Definir la variable $resultadoDeConsulta
 $resultadoDeConsulta = null;
 
-// Comprobar si el usuario está logueado
 if (isset($_SESSION['user'])) {
-    // Obtener el ID del usuario de la sesión
     $userId = $_SESSION['user']['id'];
 
-    // Realizar la consulta
     $stmt = $conn->prepare("SELECT * FROM users WHERE id = :id");
     $stmt->execute(['id' => $userId]);
     $resultadoDeConsulta = $stmt->fetch();

@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-require '../../model/database.php'; // Incluye el archivo de conexión a la base de datos
+require '../../model/database.php'; 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -10,7 +10,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $nombre = $_POST['nombre'];
     $telefono = $_POST['telefono'];
 
-    // Verificamos si el correo electrónico ya está registrado
     $stmt = $conn->prepare("SELECT * FROM users WHERE email = :email");
     $stmt->execute(['email' => $email]);
     $user = $stmt->fetch();
@@ -18,10 +17,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($user) {
         echo "El correo electrónico ya está registrado.";
     } else {
-        // Encriptar la contraseña
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-        // Insertamos al nuevo usuario en la base de datos
         $stmt = $conn->prepare("INSERT INTO users (email, password, nombre, telefono) 
                                VALUES (:email, :password, :nombre, :telefono)");
         $stmt->execute([
