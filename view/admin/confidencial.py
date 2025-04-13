@@ -1,0 +1,1 @@
+"De preferencia usar esta carpeta para el manejo del dashboard"
