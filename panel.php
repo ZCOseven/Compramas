@@ -1,13 +1,13 @@
 <?php
 session_start();
 
-require 'database.php';
+require './model/database.php';
 
 
 
-if (isset($_SESSION['user_id'])) {
+if (isset($_SESSION['id'])) {
     $records = $conn->prepare('SELECT id, email, nombre, password FROM users WHERE id = :id');
-    $records->bindParam(':id', $_SESSION['user_id']);
+    $records->bindParam(':id', $_SESSION['id']);
     if ($records->execute()) {
         $results = $records->fetch(PDO::FETCH_ASSOC);
         if ($results) {
@@ -18,9 +18,7 @@ if (isset($_SESSION['user_id'])) {
     } else {
         echo "Fallo en la consulta a la base de datos.";
     }
-} else {
-    echo "Sesión de usuario no encontrada.";
-}
+} 
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -39,7 +37,7 @@ if (isset($_SESSION['user_id'])) {
 <body>
     <nav class="navbar navbar-expand-lg ">
         <div class="container-fluid px-5" >
-            <a class="navbar-brand"> <img class="icono" src="img/logo3e2.png"></img></a>
+            <a class="navbar-brand"> <img class="icono" src="./view/assets/img/general/logo-compramas.png"></img></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -60,7 +58,7 @@ if (isset($_SESSION['user_id'])) {
                 </ul>
                 <div class="d-flex" role="search">
 
-                    <a class="btn" href="logout.php"> <button class="btn1">Cerrar</button></a>
+                    <a class="btn" href="./view/public/index.php"> <button class="btn1">Cerrar</button></a>
                 </div>
             </div>
         </div>
@@ -72,10 +70,10 @@ if (isset($_SESSION['user_id'])) {
 
         <div class="contenedor">
 
-            <img data-aos="zoom-in" data-aos-duration="2500" src="img/img5.jpg" alt="Imagen Rectangular">
+            <img data-aos="zoom-in" data-aos-duration="2500" src="./view/assets/img/inicio/banner-hero-transparent.png" alt="Imagen Rectangular">
 
             <div class="content" data-aos="fade-down" data-aos-easing="linear" data-aos-duration="1000">
-                <p class="bienvenida"> Bienvenido/a <?= $user['nombre']; ?>
+                <p class="bienvenida"> Bienvenido/a <?=  $_SESSION['user']['nombre']; ?>
                     <br>Has iniciado sesión correctamente
                 </p>
             </div>
