@@ -94,67 +94,29 @@ class ModeloProducto
         }
     }
 
+    public function MetodoInsertarPedido($id_usuario, $nombre, $correo, $telefono, $direccion, $metodo_pago, $total, $igv, $subtotal)
+    {
+        $query = "INSERT INTO pedido (id_usuario, nombre, correo, telefono, direccion, metodo_pago, total, igv, subtotal, fecha) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())";
+        $stmt = $this->conexion->prepare($query);
+        $stmt->execute([$id_usuario, $nombre, $correo, $telefono, $direccion, $metodo_pago, $total, $igv, $subtotal]);
+        return $this->conexion->lastInsertId();
+    }
 
+    public function MetodoInsertarDetallePedido($id_pedido, $id_producto, $nombre, $cantidad, $precio, $subtotal)
+    {
+        try {
+            $query = "INSERT INTO detalle_pedido (id_pedido, id_producto, nombre_producto, cantidad, precio_unitario, subtotal) VALUES (?, ?, ?, ?, ?, ?)";
+            $stmt = $this->conexion->prepare($query);
+            return $stmt->execute([$id_pedido, $id_producto, $nombre, $cantidad, $precio, $subtotal]);
+        } catch (Exception $e) {
+            return false;
+        }
+    }
 
-
-
-    /* FUNCIONES INNECESARIAS MOMENTANEAMENTE */
-
-    // function MetodoInsertar($personal)
-    // {
-    //     $query = "INSERT INTO personal(nombre, apellido, correo, rol, usuario, clave) VALUES (?, ?, ?, ?, ?, ?)";
-    //     $stm = $this->conexion->prepare($query);
-    //     if (
-    //         $stm->execute([
-    //             $personal->nombre,
-    //             $personal->apellido,
-    //             $personal->correo,
-    //             $personal->rol,
-    //             $personal->usuario,
-    //             $personal->clave,
-    //         ])
-    //     ) {
-    //         $data = 'Registrado Correctamente';
-    //     } else {
-    //         $data = 'Hubo un error al registrar';
-    //     }
-    //     return $data;
-    // }
-
-    // public function MetodoActualizar($personalUpdate)
-    // {
-    //     $query = "UPDATE personal SET nombre = ?, apellido = ?, correo = ?, rol = ?, usuario = ?, clave = ? WHERE id_personal = ?";
-    //     $stm = $this->conexion->prepare($query);
-
-    //     if ($stm->execute([
-    //             $personalUpdate->nombre,
-    //             $personalUpdate->apellido,
-    //             $personalUpdate->correo,
-    //             $personalUpdate->rol,
-    //             $personalUpdate->usuario,
-    //             $personalUpdate->clave,
-    //             $personalUpdate->id,
-    //         ])
-    //     ) {
-    //         $data = 'Registro actualizado correctamente';
-    //     } else {
-    //         $data = 'Hubo un error al actualizar el registro';
-    //     }
-
-    //     return $data;
-    // }
-
-    // function MetodoEliminar($id)
-    // {
-    //     $query = "DELETE FROM personal WHERE id_personal = ?";
-    //     $stm = $this->conexion->prepare($query);
-
-    //     if ($stm->execute([$id])) {
-    //         $data = 'Eliminado Correctamente';
-    //     } else {
-    //         $data = 'Hubo un error al eliminar';
-    //     }
-
-    //     return $data;
-    // }
+    public function MetodoInsertarUsuario($nombre, $correo, $telefono) {
+        $query = "INSERT INTO users (nombre, email, telefono, password) VALUES (?, ?, ?, '')";
+        $stmt = $this->conexion->prepare($query);
+        $stmt->execute([$nombre, $correo, $telefono]);
+        return $this->conexion->lastInsertId();
+    }
 }

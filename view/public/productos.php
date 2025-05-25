@@ -120,7 +120,16 @@ if ($categoria) {
                     <h3 class="producto-card__nombre"><?= $fila["nom_pro"] ?></h3>
                     <span class="producto-card__precio">S/<?= number_format($fila["costo"], 2, '.', ',') ?></span>
                 </div>
-                <button class="producto-card__btn-add">Añadir al Carrito</button>
+                <button
+                    class="producto-card__btn-add"
+                    data-id="<?= $fila['id_producto'] ?>"
+                    data-nombre="<?= htmlspecialchars($fila['nom_pro']) ?>"
+                    data-precio="<?= $fila['costo'] ?>"
+                    data-descripcion="<?= htmlspecialchars($fila['descripcion']) ?>"
+                    data-imagen="../<?= $fila['imagen'] ?>"
+                >
+                    Añadir al Carrito
+                </button>
             </article>
 
         <?php } ?>

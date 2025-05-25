@@ -244,6 +244,343 @@
     margin-top: 2rem;
 }
 
+
+/* Botón flotante de carrito */
+.carrito-flotante {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 1100;
+    background: var(--color-primario, #4b5945);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.carrito-flotante:hover {
+    background: var(--color-secundario, #91ac8f);
+}
+
+/* Overlay oscuro */
+.carrito-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(0,0,0,0.35);
+    z-index: 1200;
+    transition: opacity 0.3s;
+    opacity: 0;
+}
+.carrito-overlay.activo {
+    display: block;
+    opacity: 1;
+}
+
+/* Contenedor principal del carrito */
+.carrito-contenedor {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 30rem;
+    max-width: 100vw;
+    background: #fff;
+    box-shadow: -2px 0 16px rgba(0,0,0,0.15);
+    position: fixed;
+    top: 0; right: 0;
+    z-index: 1300;
+    transform: translateX(100%);
+    transition: transform 0.4s cubic-bezier(.77,0,.18,1);
+}
+.carrito-contenedor.activo {
+    transform: translateX(0%);
+}
+
+/* Fila 1: Header */
+.carrito-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 2rem 1.2rem 2rem;
+    border-bottom: 1px solid #e0e0e0;
+    background: #f8faf7;
+}
+.carrito-titulo {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #4b5945;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+.carrito-cerrar {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #4b5945;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+.carrito-cerrar:hover {
+    color: #91ac8f;
+}
+
+/* Fila 2: Productos */
+.carrito-productos {
+    position: relative;
+    flex: 1 1 auto;
+    overflow-y: auto;
+    padding: 1.2rem 2rem;
+    background: #fff;
+    /* Para evitar salto al aparecer/desaparecer scroll */
+    scrollbar-gutter: stable;
+}
+
+/* Scrollbar personalizado */
+.carrito-productos::-webkit-scrollbar {
+    width: 10px;
+    background: #eaf3e6;
+}
+.carrito-productos::-webkit-scrollbar-thumb {
+    background: #91ac8f;
+    border-radius: 6px;
+}
+.carrito-productos::-webkit-scrollbar-thumb:hover {
+    background: #4b5945;
+}
+.carrito-productos {
+    scrollbar-width: thin;
+    scrollbar-color: #91ac8f #eaf3e6;
+}
+
+/* Producto individual */
+.carrito-producto {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.2rem;
+    padding-bottom: 1.2rem;
+    border-bottom: 1px solid #f0f0f0;
+}
+.carrito-producto:last-child {
+    margin-bottom: 0;
+    border-bottom: none;
+}
+.carrito-producto-img {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    border-radius: 8px;
+    background: #f8faf7;
+    border: 1px solid #e0e0e0;
+}
+.carrito-producto-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+.carrito-producto-nombre {
+    font-weight: 600;
+    color: #4b5945;
+}
+.carrito-producto-cantidad {
+    font-size: 0.95rem;
+    color: #91ac8f;
+}
+
+/* Mejora visual para los botones de cantidad */
+.carrito-producto-cantidad-control {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0.5rem 0;
+}
+
+.carrito-cantidad-menos,
+.carrito-cantidad-mas {
+    background: #eaf3e6;
+    color: #4b5945;
+    border: 1px solid #91ac8f;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, opacity 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+}
+
+.carrito-cantidad-mas:hover {
+    background: #91ac8f;
+    color: #fff;
+}
+
+.carrito-cantidad-menos:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: #e0e0e0;
+    color: #bdbdbd;
+    border-color: #e0e0e0;
+}
+
+.carrito-producto-precio {
+    font-size: 1rem;
+    color: #4b5945;
+}
+.carrito-producto-eliminar {
+    background: none;
+    border: none;
+    color: #e74c3c;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+.carrito-producto-eliminar:hover {
+    color: #c0392b;
+}
+.carrito-producto-descripcion {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 0.95rem;
+    color: #666;
+    margin-bottom: 0.3rem;
+    max-width: 90%;
+}
+
+/* Fila 3: Footer */
+.carrito-footer {
+    padding: 1.5rem 2rem 1.5rem 2rem;
+    border-top: 1px solid #e0e0e0;
+    background: #f8faf7;
+}
+.carrito-totales {
+    margin-bottom: 1.2rem;
+}
+.carrito-totales div {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
+}
+.carrito-total {
+    font-weight: 700;
+    color: #4b5945;
+    font-size: 1.15rem;
+}
+.carrito-acciones {
+    display: flex;
+    gap: 1rem;
+}
+.carrito-btn {
+    flex: 1;
+    text-align: center;
+    padding: 0.7rem 0;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+}
+.carrito-btn-ver {
+    background: #eaf3e6;
+    color: #4b5945;
+    border: 1px solid #91ac8f;
+}
+.carrito-btn-ver:hover {
+    background: #91ac8f;
+    color: #fff;
+}
+.carrito-btn-comprar {
+    background: #4b5945;
+    color: #fff;
+    border: none;
+}
+.carrito-btn-comprar:hover {
+    background: #91ac8f;
+    color: #fff;
+}
+
+/* ==================== NOTIFICACIÓN ==================== */
+.carrito-notificacion {
+    position: fixed;
+    top: 8rem;
+    left: 2rem;
+    z-index: 2000;
+    background: #eaf3e6;
+    color: #4b5945;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-size: 1.1rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s;
+}
+.carrito-notificacion.activo {
+    opacity: 1;
+    pointer-events: auto;
+}
+.carrito-notificacion i {
+    color: #4b5945;
+    font-size: 1.5rem;
+}
+
+/* ==================== MENSAJE CARRO VACÍO ==================== */
+/* Mensaje de carrito vacío con efecto marca de agua */
+.carrito-vacio {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    user-select: none;
+}
+
+.carrito-vacio i {
+    font-size: 7rem;
+    color: #eaf3e6;
+    opacity: 0.6;
+    margin-bottom: 1.2rem;
+    filter: blur(0.5px);
+    transition: opacity 0.3s;
+}
+
+.carrito-vacio p {
+    color: #b7c8b2;
+    font-size: 1.25rem;
+    font-weight: 500;
+    text-align: center;
+    opacity: 0.7;
+    margin: 0;
+    text-shadow: 0 1px 2px #fff, 0 0 10px #eaf3e6;
+    letter-spacing: 0.5px;
+}
+
 /* ==================== MEDIA QUERIES ==================== */
 @media (max-width: 992px) {
     .header__nav {
@@ -316,3 +653,4 @@
         right: 1.5rem;
     }
 }
+

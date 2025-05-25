@@ -50,6 +50,41 @@ class ControladorProducto
         $data = $this->modeloProducto->MetodoEliminar($id);
         return $data;
     }
+
+    public function insertarPedidoCompleto($datosPedido, $carrito)
+    {
+        // Crear usuario y obtener su id
+        $idUsuario = $this->modeloProducto->MetodoInsertarUsuario(
+            $datosPedido['nombre'],
+            $datosPedido['correo'],
+            $datosPedido['telefono']
+        );
+        // Insertar el pedido con el id_usuario generado
+        $idPedido = $this->modeloProducto->MetodoInsertarPedido(
+            $idUsuario,
+            $datosPedido['nombre'],
+            $datosPedido['correo'],
+            $datosPedido['telefono'],
+            $datosPedido['direccion'],
+            $datosPedido['metodo_pago'],
+            $datosPedido['total'],
+            $datosPedido['igv'],
+            $datosPedido['subtotal']
+        );
+        if (!$idPedido) return false;
+
+        foreach ($carrito as $prod) {
+            $this->modeloProducto->MetodoInsertarDetallePedido(
+                $idPedido,
+                $prod['id'],
+                $prod['nombre'],
+                $prod['cantidad'],
+                $prod['precio'],
+                $prod['precio'] * $prod['cantidad']
+            );
+        }
+        return $idPedido;
+    }
 }
 
 //Instanciamos el controlador

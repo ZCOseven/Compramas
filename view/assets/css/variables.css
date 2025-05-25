@@ -23,4 +23,8 @@
 
     --filtros-color-primario-danger: #dc3545;
 
+    --ancho-maximo: 1400px;
+    --color-tabla-header: #f8faf7;
+    --color-tabla-borde: #e0e0e0;
+    --color-tabla-hover: #f1f7f3;
 }

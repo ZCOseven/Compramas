@@ -195,7 +195,78 @@ if (isset($_SESSION['user'])) {
         </div>
     </footer>
 
+    <!-- Botón flotante de carrito -->
+    <button id="btnCarrito" class="carrito-flotante" aria-label="Ver carrito">
+        <i class="fas fa-shopping-cart"></i>
+    </button>
+
+    <!-- Overlay y contenedor del carrito -->
+    <div id="carritoOverlay" class="carrito-overlay"></div>
+    <aside id="carritoContenedor" class="carrito-contenedor">
+        <div class="carrito-header">
+            <h2 class="carrito-titulo"><i class="fas fa-shopping-cart"></i> Carrito de Compramas</h2>
+            <button class="carrito-cerrar" id="cerrarCarritoBtn" aria-label="Cerrar carrito">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="carrito-productos" id="carritoProductos">
+            <div id="carritoVacio" class="carrito-vacio" style="display:none;">
+                <i class="fas fa-shopping-basket"></i>
+                <p>Tu carrito está vacío.<br>¡Añade productos para comenzar!</p>
+            </div>
+            <!-- Los productos se renderizan aquí por JS -->
+        </div>
+        <div class="carrito-footer">
+            <div class="carrito-totales">
+                <div><span>Subtotal:</span><span id="carritoSubtotal">S/ 0.00</span></div>
+                <div><span>IGV (18%):</span><span id="carritoIGV">S/ 0.00</span></div>
+                <div class="carrito-total"><span>Total:</span><span id="carritoTotal">S/ 0.00</span></div>
+            </div>
+            <div class="carrito-acciones">
+                <a href="./carrito.php" class="carrito-btn carrito-btn-ver">Ver carrito</a>
+                <a href="./checkout.php" class="carrito-btn carrito-btn-comprar">Procesar compra</a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Mensaje temporal de producto añadido -->
+    <div id="carritoNotificacion" class="carrito-notificacion">
+        <i class="fas fa-check-circle"></i>
+        <span id="carritoNotificacionTexto">¡Producto añadido al carrito!</span>
+    </div>
+
     <script src="../assets/js/menuDesplegable.js"></script>
+    <script src="../assets/js/carrito.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const btnCarrito = document.getElementById('btnCarrito');
+            const overlay = document.getElementById('carritoOverlay');
+            const contenedor = document.getElementById('carritoContenedor');
+            const cerrarCarritoBtn = document.getElementById('cerrarCarritoBtn');
+
+            function abrirCarrito() {
+                const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
+                document.body.style.overflow = 'hidden';
+                document.body.style.paddingRight = scrollBarWidth + 'px';
+                overlay.classList.add('activo');
+                contenedor.classList.add('activo');
+            }
+
+            function cerrarCarrito() {
+                document.body.style.overflow = '';
+                document.body.style.paddingRight = '';
+                overlay.classList.remove('activo');
+                contenedor.classList.remove('activo');
+            }
+
+            btnCarrito.addEventListener('click', abrirCarrito);
+            overlay.addEventListener('click', cerrarCarrito);
+            if (cerrarCarritoBtn) {
+                cerrarCarritoBtn.addEventListener('click', cerrarCarrito);
+            }
+        });
+    </script>
 </body>
 
 </html>
