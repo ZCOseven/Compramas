@@ -1,16 +1,27 @@
 <?php
-session_start();
-require '../../model/database.php';
-
-$resultadoDeConsulta = null;
-
-if (isset($_SESSION['user'])) {
-    $userId = $_SESSION['user']['id'];
-
-    $stmt = $conn->prepare("SELECT * FROM users WHERE id = :id");
-    $stmt->execute(['id' => $userId]);
-    $resultadoDeConsulta = $stmt->fetch();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
 }
+
+echo '<!-- Debug: ' . print_r($_SESSION, true) . ' -->';
+
+// Redirección automática si es usuario interno
+if (isset($_SESSION['user'])) {
+    header('Location: ../admin/dashboard.php');
+    exit;
+}
+
+// Solo si necesitas datos adicionales del cliente (opcional)
+require_once '../controller/controlador_clientes.php'; // Ajusta la ruta si es necesario
+
+$clienteInfo = null;
+if (isset($_SESSION['cliente'])) {
+    // Puedes crear una función en tu controlador/modelo para obtener los datos completos del cliente
+    $clienteId = $_SESSION['cliente']['id_cliente'];
+    $clienteInfo = $controladorCliente->obtenerPorId($clienteId); // Implementa este método en tu controlador/modelo
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -69,18 +80,21 @@ if (isset($_SESSION['user'])) {
                 <a href="../public/contactos.php" class="header__nav-link <?= $activePage === 'contactos' ? 'header__nav-link--active' : '' ?>">Contactos</a>
 
                 <!-- Enlace de login o perfil del usuario, dependiendo de si está logueado -->
-                <a href="../public/login.php" class="header__nav-link <?= $activePage === 'login' ? 'header__nav-link--active' : '' ?>">
-
-                    <!-- Si el usuario ha iniciado sesión, se muestra su nombre con ícono -->
-                    <?php if (isset($_SESSION['user'])): ?>
-                        <i class="fas fa-user"></i> <?= $_SESSION['user']['nombre']; ?>
-
-                        <!-- Si no ha iniciado sesión, se muestra "Iniciar sesión" -->
-                    <?php else: ?>
+                <?php if (isset($_SESSION['cliente'])): ?>
+                    <a href="#" class="header__nav-link <?= $activePage === 'login' ? 'header__nav-link--active' : '' ?> header__nav-user" id="userMenuBtn">
+                        <i class="fas fa-user"></i> <?= htmlspecialchars($_SESSION['cliente']['nombre']); ?>
+                        <span class="header__nav-caret"><i class="fas fa-caret-down"></i></span>
+                        <div class="header__nav-dropdown" id="userMenuDropdown">
+                            <a href="cliente_perfil.php">Mi perfil</a>
+                            <a href="cliente_pedidos.php">Mis pedidos</a>
+                            <a href="logout.php">Cerrar sesión</a>
+                        </div>
+                    </a>
+                <?php else: ?>
+                    <a href="login.php" class="header__nav-link <?= $activePage === 'login' ? 'header__nav-link--active' : '' ?>">
                         Iniciar sesión
-                    <?php endif; ?>
-
-                </a>
+                    </a>
+                <?php endif; ?>
 
             </nav>
 
@@ -106,16 +120,19 @@ if (isset($_SESSION['user'])) {
                 <a href="../public/soporte.php" class="mobile-menu__link <?= $activePage === 'soporte' ? 'header__nav-link--active' : '' ?>" onclick="toggleMenu()">Soporte</a> -->
 
                 <a href="../public/encuentranos.php" class="mobile-menu__link <?= $activePage === 'encuentranos' ? 'header__nav-link--active' : '' ?>" onclick="toggleMenu()">Encuéntranos</a>
-                <a href="../public/login.php" class="header__nav-link <?= $activePage === 'login' ? 'header__nav-link--active' : '' ?>">
-                    <?php if (isset($_SESSION['user'])): ?>
-                        <i class="fas fa-user"></i> <?= $_SESSION['user']['nombre']; ?>
-                    <?php else: ?>
-                        Iniciar sesión
-                    <?php endif; ?>
-
-
-                </a>
+                <?php if (!isset($_SESSION['cliente'])): ?>
+                    <a href="login.php" class="mobile-menu__link" onclick="toggleMenu()">Iniciar sesión</a>
+                <?php endif; ?>
             </nav>
+
+            <?php if (isset($_SESSION['cliente'])): ?>
+                <div class="mobile-menu__user">
+                    <i class="fas fa-user"></i> <?= htmlspecialchars($_SESSION['cliente']['nombre']); ?>
+                    <a href="cliente_perfil.php" class="mobile-menu__link" onclick="toggleMenu()">Mi perfil</a>
+                    <a href="cliente_pedidos.php" class="mobile-menu__link" onclick="toggleMenu()">Mis pedidos</a>
+                    <a href="logout.php" class="mobile-menu__link" onclick="toggleMenu()">Cerrar sesión</a>
+                </div>
+            <?php endif; ?>
         </div>
     </header>
 
@@ -264,6 +281,26 @@ if (isset($_SESSION['user'])) {
             overlay.addEventListener('click', cerrarCarrito);
             if (cerrarCarritoBtn) {
                 cerrarCarritoBtn.addEventListener('click', cerrarCarrito);
+            }
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const userMenuBtn = document.getElementById('userMenuBtn');
+            const userMenuDropdown = document.getElementById('userMenuDropdown');
+
+            if (userMenuBtn && userMenuDropdown) {
+                userMenuBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    userMenuDropdown.classList.toggle('activo');
+                });
+
+                // Cierra el menú si haces click fuera
+                document.addEventListener('click', function(e) {
+                    if (!userMenuBtn.contains(e.target)) {
+                        userMenuDropdown.classList.remove('activo');
+                    }
+                });
             }
         });
     </script>

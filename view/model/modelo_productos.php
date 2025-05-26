@@ -94,11 +94,10 @@ class ModeloProducto
         }
     }
 
-    public function MetodoInsertarPedido($id_usuario, $nombre, $correo, $telefono, $direccion, $metodo_pago, $total, $igv, $subtotal)
-    {
-        $query = "INSERT INTO pedido (id_usuario, nombre, correo, telefono, direccion, metodo_pago, total, igv, subtotal, fecha) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())";
+    public function MetodoInsertarPedido($id_cliente, $nombre, $correo, $telefono, $direccion, $metodo_pago, $total, $igv, $subtotal) {
+        $query = "INSERT INTO pedido (id_cliente, nombre, correo, telefono, direccion, metodo_pago, total, igv, subtotal, fecha) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())";
         $stmt = $this->conexion->prepare($query);
-        $stmt->execute([$id_usuario, $nombre, $correo, $telefono, $direccion, $metodo_pago, $total, $igv, $subtotal]);
+        $stmt->execute([$id_cliente, $nombre, $correo, $telefono, $direccion, $metodo_pago, $total, $igv, $subtotal]);
         return $this->conexion->lastInsertId();
     }
 

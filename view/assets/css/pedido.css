@@ -1,0 +1,97 @@
+.pedidos-lista {
+    max-width: 1440px;
+    margin: 0 auto;
+    width: 100%;
+}
+.pedidos-tabla {
+    width: 100%;
+    min-width: 600px;
+    border-collapse: collapse;
+}
+.pedidos-tabla th, .pedidos-tabla td {
+    padding: 0.8rem 0.5rem;
+    text-align: center;
+}
+.pedidos-tabla .carrito-btn-ver {
+    padding-inline: 1.2rem;
+}
+.cliente-panel {
+    display: flex;
+    gap: 0;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding-inline: 3rem;
+    width: 100%;
+    background: #fff;
+    /* border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04); */
+}
+.cliente-menu {
+    min-width: 300px;
+    background: #f8f8f8;
+    /* border-radius: 10px 0 0 10px; */
+    padding: 2rem 1rem;
+    height: auto;
+    border-right: 1px solid #6fa36f; /* Color de la marca */
+    /* Solo el borde derecho */
+    box-sizing: border-box;
+}
+.cliente-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.cliente-menu li {
+    margin-bottom: 1.2rem;
+}
+.cliente-menu a {
+    text-decoration: underline;    
+    color: #333;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    display: block;
+    transition: color 0.2s;
+}
+.cliente-menu a.activo,
+.cliente-menu a:hover {
+    color: #b7c8b2;
+}
+.cliente-contenido {
+    flex: 1;
+    min-width: 0;
+    padding: 2rem 2rem 2rem 2.5rem;
+}
+@media (max-width: 900px) {
+    .cliente-panel {
+        flex-direction: column;
+        border-radius: 10px;
+    }
+    .cliente-menu {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #6fa36f;
+        border-radius: 10px 10px 0 0;
+        margin-bottom: 1rem;
+        padding: 1rem 0.5rem;
+    }
+    .cliente-contenido {
+        padding: 1rem 0.5rem;
+    }
+}
+@media (max-width: 900px) {
+    .pedidos-lista {
+        min-width: 0;
+        max-width: 100vw;
+        padding: 0 0.5rem;
+    }
+    .pedidos-tabla {
+        min-width: 0;
+        font-size: 0.95rem;
+    }
+}
+@media (max-width: 600px) {
+    .pedidos-tabla th, .pedidos-tabla td {
+        padding: 0.5rem 0.2rem;
+        font-size: 0.9rem;
+    }
+}

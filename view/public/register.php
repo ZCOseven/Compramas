@@ -1,74 +1,79 @@
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
-require '../../model/database.php'; 
+$title = "Compramas - Registro";
+$activePage = 'register';
+ob_start();
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+require_once '../controller/controlador_clientes.php';
 
-    $email = $_POST['email'];
+$mensaje = '';
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $nombre = trim($_POST['nombre']);
+    $email = trim($_POST['email']);
+    $telefono = trim($_POST['telefono']);
     $password = $_POST['password'];
-    $nombre = $_POST['nombre'];
-    $telefono = $_POST['telefono'];
 
-    $stmt = $conn->prepare("SELECT * FROM users WHERE email = :email");
-    $stmt->execute(['email' => $email]);
-    $user = $stmt->fetch();
+    $resultado = $controladorCliente->registrar($nombre, $email, $telefono, $password);
 
-    if ($user) {
-        echo "El correo electrónico ya está registrado.";
+    if ($resultado['success']) {
+        $mensaje = '<div class="alert-success">¡Registro exitoso! Ahora puedes <a href="login.php">iniciar sesión</a>.</div>';
+        // Inicia sesión automáticamente
+        $_SESSION['cliente'] = [
+            'id_cliente' => $resultado['cliente']['id_cliente'],
+            'nombre' => $resultado['cliente']['nombre'],
+            'email' => $resultado['cliente']['email']
+        ];
+        $redirect = isset($_GET['return']) ? $_GET['return'] : '#';
+        header('Location: ' . $redirect);
+        exit;
     } else {
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
-        $stmt = $conn->prepare("INSERT INTO users (email, password, nombre, telefono) 
-                               VALUES (:email, :password, :nombre, :telefono)");
-        $stmt->execute([
-            'email' => $email, 
-            'password' => $hashedPassword, 
-            'nombre' => $nombre, 
-            'telefono' => $telefono
-        ]);
-
-        echo "<script>alert('¡Usuario registrado exitosamente!');</script>";
+        $mensaje = '<div class="alert-error">' . htmlspecialchars($resultado['message']) . '</div>';
     }
-} 
+}
 ?>
 
-
-
-
-
-
 <link rel="stylesheet" href="../assets/css/login.css">
+<link rel="stylesheet" href="../assets/css/productos.css">
+<link rel="stylesheet" href="../assets/css/carrito.css">
 
-<!-- Formulario que envía los datos a 'register.php' mediante el método POST -->
-<form action="register.php" method="POST">
+<div class="c-barra-de-texto">
+    <div class="c-mostrar-busqueda">
+        <span><i class="fas fa-user-plus"></i> Crear cuenta</span>
+    </div>
+</div>
 
-    <!-- Etiqueta del campo de correo electrónico -->
-    <label for="email">Correo electrónico:</label>
+<section class="c-principal login-pagina">
+    <form class="login-form" method="post" action="register.php<?= isset($_GET['return']) ? '?return=' . urlencode($_GET['return']) : '' ?>" autocomplete="off">
+        <h2 class="login-titulo">Regístrate en Compramas</h2>
+        <?= $mensaje ?? '' ?>
+        <div class="login-form-grupo">
+            <label for="nombre">Nombre completo</label>
+            <input type="text" id="nombre" name="nombre" required maxlength="200" autocomplete="name">
+        </div>
+        <div class="login-form-grupo">
+            <label for="email">Correo electrónico</label>
+            <input type="email" id="email" name="email" required maxlength="200" autocomplete="username">
+        </div>
+        <div class="login-form-grupo">
+            <label for="telefono">Teléfono</label>
+            <input type="text" id="telefono" name="telefono" required maxlength="20" autocomplete="tel">
+        </div>
+        <div class="login-form-grupo">
+            <label for="password">Contraseña</label>
+            <input type="password" id="password" name="password" required maxlength="200" autocomplete="new-password">
+        </div>
+        <button type="submit" class="carrito-btn carrito-btn-comprar" style="width:100%;margin-top:1.2rem;">Crear cuenta</button>
+        <div class="login-enlace-registro">
+            ¿Ya tienes cuenta? 
+            <a href="login.php<?= isset($_GET['return']) ? '?return=' . urlencode($_GET['return']) : '' ?>">Inicia sesión aquí</a>
+        </div>
+    </form>
+</section>
 
-    <!-- Campo de entrada para el email (validado automáticamente por el navegador) -->
-    <input type="email" id="email" name="email" required><br>
-
-    <!-- Etiqueta del campo de contraseña -->
-    <label for="password">Contraseña:</label>
-
-    <!-- Campo para que el usuario escriba su contraseña (los caracteres se ocultan) -->
-    <input type="password" id="password" name="password" required><br>
-
-    <!-- Etiqueta para el campo de nombre completo -->
-    <label for="nombre">Nombre completo:</label>
-
-    <!-- Campo de texto donde el usuario escribe su nombre completo -->
-    <input type="text" id="nombre" name="nombre" required><br>
-
-    <!-- Etiqueta del campo de teléfono -->
-    <label for="telefono">Teléfono:</label>
-
-    <!-- Campo de entrada de texto para el número de teléfono -->
-    <!-- Puede validarse mejor si se usa 'type="tel"' en vez de "text" -->
-    <input type="text" id="telefono" name="telefono" required><br>
-
-    <!-- Botón que envía el formulario para registrar al usuario -->
-    <button type="submit">Registrar</button>
-</form>
-
+<?php
+$content = ob_get_clean();
+include 'template.php';
+?>

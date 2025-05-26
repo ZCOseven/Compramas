@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-05-2025 a las 03:02:17
+-- Tiempo de generación: 26-05-2025 a las 08:47:04
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -47,6 +47,22 @@ INSERT INTO `categoria` (`id_categoria`, `cat_nom`, `cat_des`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `clientes`
+--
+
+CREATE TABLE `clientes` (
+  `id_cliente` int(11) NOT NULL,
+  `nombre` varchar(200) NOT NULL,
+  `email` varchar(200) NOT NULL,
+  `telefono` varchar(20) NOT NULL,
+  `password` varchar(200) NOT NULL,
+  `direccion` varchar(200) DEFAULT NULL,
+  `fecha_registro` datetime DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `contacto`
 --
 
@@ -66,6 +82,43 @@ INSERT INTO `contacto` (`id`, `nombres`, `apellidos`, `correo`, `mensaje`) VALUE
 (10, 'Pedro Alessandro', 'Rodenas Aponte', 'rodenaspedro094@gmail.com', 'Buena tienda'),
 (11, 'Jorge Antonio', 'Luque Chambi', 'jlsiatmedia@senati.pe', 'Buena tienda'),
 (12, 'daniel', 'yww', 'dc2832838@gmail.com', 'dasdas');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `detalle_pedido`
+--
+
+CREATE TABLE `detalle_pedido` (
+  `id_detalle` int(11) NOT NULL,
+  `id_pedido` int(11) NOT NULL,
+  `id_producto` int(11) NOT NULL,
+  `cantidad` int(11) NOT NULL,
+  `precio_unitario` float NOT NULL,
+  `nombre_producto` varchar(200) DEFAULT NULL,
+  `subtotal` float DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pedido`
+--
+
+CREATE TABLE `pedido` (
+  `id_pedido` int(11) NOT NULL,
+  `fecha` datetime DEFAULT current_timestamp(),
+  `total` float NOT NULL,
+  `estado` varchar(30) DEFAULT 'pendiente',
+  `nombre` varchar(80) DEFAULT NULL,
+  `correo` varchar(80) DEFAULT NULL,
+  `telefono` varchar(20) DEFAULT NULL,
+  `direccion` varchar(150) DEFAULT NULL,
+  `metodo_pago` varchar(30) DEFAULT NULL,
+  `igv` float DEFAULT NULL,
+  `subtotal` float DEFAULT NULL,
+  `id_cliente` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -128,16 +181,20 @@ CREATE TABLE `users` (
   `email` varchar(200) NOT NULL,
   `password` varchar(200) NOT NULL,
   `nombre` varchar(200) NOT NULL,
-  `telefono` int(9) NOT NULL
+  `telefono` varchar(20) NOT NULL,
+  `rol` varchar(20) NOT NULL DEFAULT 'empleado'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `users`
 --
 
-INSERT INTO `users` (`id`, `email`, `password`, `nombre`, `telefono`) VALUES
-(5, 'rodenaspedro094@gmail.com', '$2y$10$Xk/CzNKAiwlySHW/RaufQe6kql1B7AcfJnrTzTQW6yETdlfJfJeqW', 'Pedro', 908621582),
-(6, 'admin@gmail.com', '12345', 'Admin', 999999999);
+INSERT INTO `users` (`id`, `email`, `password`, `nombre`, `telefono`, `rol`) VALUES
+(14, 'dc644373@gmail.com', '', 'Daniel Calderon', '000000000', 'empleado'),
+(15, 'dc644373@gmail.com', '', 'Daniel Calderon', '000000000', 'empleado'),
+(16, 'dc644373@gmail.com', '', 'Daniel Calderon', '000000000', 'empleado'),
+(17, 'dc644373@gmail.com', '', 'Daniel Calderon', '000000000', 'empleado'),
+(18, 'dc644373@gmail.com', '', 'Daniel Calderon', '000000000', 'empleado');
 
 --
 -- Índices para tablas volcadas
@@ -150,10 +207,32 @@ ALTER TABLE `categoria`
   ADD PRIMARY KEY (`id_categoria`);
 
 --
+-- Indices de la tabla `clientes`
+--
+ALTER TABLE `clientes`
+  ADD PRIMARY KEY (`id_cliente`),
+  ADD UNIQUE KEY `email` (`email`);
+
+--
 -- Indices de la tabla `contacto`
 --
 ALTER TABLE `contacto`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `detalle_pedido`
+--
+ALTER TABLE `detalle_pedido`
+  ADD PRIMARY KEY (`id_detalle`),
+  ADD KEY `id_pedido` (`id_pedido`),
+  ADD KEY `id_producto` (`id_producto`);
+
+--
+-- Indices de la tabla `pedido`
+--
+ALTER TABLE `pedido`
+  ADD PRIMARY KEY (`id_pedido`),
+  ADD KEY `pedido_ibfk_cliente` (`id_cliente`);
 
 --
 -- Indices de la tabla `producto`
@@ -179,10 +258,28 @@ ALTER TABLE `categoria`
   MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
+-- AUTO_INCREMENT de la tabla `clientes`
+--
+ALTER TABLE `clientes`
+  MODIFY `id_cliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT de la tabla `contacto`
 --
 ALTER TABLE `contacto`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT de la tabla `detalle_pedido`
+--
+ALTER TABLE `detalle_pedido`
+  MODIFY `id_detalle` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `pedido`
+--
+ALTER TABLE `pedido`
+  MODIFY `id_pedido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `producto`
@@ -194,11 +291,24 @@ ALTER TABLE `producto`
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `detalle_pedido`
+--
+ALTER TABLE `detalle_pedido`
+  ADD CONSTRAINT `detalle_pedido_ibfk_1` FOREIGN KEY (`id_pedido`) REFERENCES `pedido` (`id_pedido`),
+  ADD CONSTRAINT `detalle_pedido_ibfk_2` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`id_producto`);
+
+--
+-- Filtros para la tabla `pedido`
+--
+ALTER TABLE `pedido`
+  ADD CONSTRAINT `pedido_ibfk_cliente` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id_cliente`);
 
 --
 -- Filtros para la tabla `producto`

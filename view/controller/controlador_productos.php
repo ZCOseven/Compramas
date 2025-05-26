@@ -53,15 +53,10 @@ class ControladorProducto
 
     public function insertarPedidoCompleto($datosPedido, $carrito)
     {
-        // Crear usuario y obtener su id
-        $idUsuario = $this->modeloProducto->MetodoInsertarUsuario(
-            $datosPedido['nombre'],
-            $datosPedido['correo'],
-            $datosPedido['telefono']
-        );
-        // Insertar el pedido con el id_usuario generado
+        // Usa el id_cliente de la sesión
+        $idCliente = $_SESSION['cliente']['id_cliente'];
         $idPedido = $this->modeloProducto->MetodoInsertarPedido(
-            $idUsuario,
+            $idCliente,
             $datosPedido['nombre'],
             $datosPedido['correo'],
             $datosPedido['telefono'],
